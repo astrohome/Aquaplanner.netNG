@@ -4,15 +4,16 @@ import com.galaxysoft.aquaplannernetng.model.DataOffset
 import com.galaxysoft.aquaplannernetng.model.Mode
 import com.galaxysoft.aquaplannernetng.model.OutputChannel
 import com.galaxysoft.aquaplannernetng.model.Task
+import com.galaxysoft.aquaplannernetng.net.requests.base.BaseParser
 import org.joda.time.LocalTime
 import java.util.*
 import kotlin.coroutines.experimental.buildSequence
 
-class TaskListParser {
+class TaskListParser : BaseParser<Task> {
 
     private val deviceTaskStructByteCount = 15
 
-    fun parse(data: ByteArray): List<Task> {
+    override fun parse(data: ByteArray): List<Task> {
         val lines = data.size / deviceTaskStructByteCount
         val result = buildSequence {
 
