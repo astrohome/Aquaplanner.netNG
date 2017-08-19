@@ -29,7 +29,7 @@ public class StatusParserTest {
         byte[] input = "[-99.9, 26.6, -99.9, 1, 3, 1, 1, 1, 1, 0, 2,   0, 99, 120, 0, 0, 0, 15, 1,     21,   55,     14, 8,    17]".getBytes("UTF-8");
         result = statusParser.parse(input);
 
-        input = "[-99.9, 24.5, -99.9, 1, 0, 1, 1, 1, 1, 1, 2,   0, 9, 0, 0, 50, 1, 0, 1,     21,   55,     14, 8,    17]".getBytes("UTF-8");
+        input = "[-99.9, -24.5, 15.658, 1, 0, 1, 1, 1, 1, 1, 2,   0, 9, 0, 0, 50, 1, 0, 1,     21,   55,     14, 8,    17]".getBytes("UTF-8");
         result2 = statusParser.parse(input);
     }
 
@@ -46,7 +46,17 @@ public class StatusParserTest {
     @Test
     public void testTemp1() {
         Status s = result.get(0);
-        Assert.assertEquals(24, s.getTemp1());
+        Assert.assertEquals(26.6f, s.getTemp1());
+        s = result2.get(0);
+        Assert.assertEquals(-24.5f, s.getTemp1());
+    }
+
+    @Test
+    public void testTemp2() {
+        Status s = result.get(0);
+        Assert.assertNull(s.getTemp2());
+        s = result2.get(0);
+        Assert.assertEquals(15.658f, s.getTemp2());
     }
 
     @Test
